@@ -3,9 +3,8 @@ import { getProduct, products } from "../../data/products.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { formatCurrency } from "../utils/money.js";
 
-// renderorderSummary() is used to update the html 
-// (the date which we'll select, will be shown without refreshing the page)
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
 
@@ -13,19 +12,21 @@ export function renderOrderSummary() {
     let productId = cartItem.productId;
 
     const matchingProduct = getProduct(productId);
-
+    
     const deliveryOptionId = cartItem.deliveryOptionsId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
+    //changes
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd,MMMM D");
 
-    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingProduct.id
-      }">
+    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
+      matchingProduct.id
+    }">
             <div class="delivery-date">
-              Delivery date: ${dateString} 
+              Delivery date: ${dateString}
             </div>
 
             <div class="cart-item-details-grid">
@@ -37,18 +38,20 @@ export function renderOrderSummary() {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                  ₹${matchingProduct.priceCents}
+                  $${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${cartItem.quantity
-      }</span>
+                    Quantity: <span class="quantity-label">${
+                      cartItem.quantity
+                    }</span>
                   </span>
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span data-product-id = "${matchingProduct.id
-      }" class="delete-quantity-link link-primary js-delete-link">
+                  <span data-product-id = "${
+                    matchingProduct.id
+                  }" class="delete-quantity-link link-primary js-delete-link">
                     Delete
                   </span>
                 </div>
@@ -59,10 +62,10 @@ export function renderOrderSummary() {
                   Choose a delivery option:
                 </div>
                 
-                ${deliveryOptionsHTML(matchingProduct, cartItem)}
+                ${deliveryOptionsHTML(matchingProduct, cartItem)};
               </div>
             </div>
-          </div>`
+          </div>`;
   });
 
   document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
@@ -81,8 +84,9 @@ export function renderOrderSummary() {
       const isChecked = deliveryOptions.id === cartItem.deliveryOptionsId;
 
       html += `
-          <div class="delivery-option js-delivery-option" data-delivery-option-id="${deliveryOptions.id
-        }" data-product-id="${matchingProduct.id}">
+          <div class="delivery-option js-delivery-option" data-delivery-option-id="${
+            deliveryOptions.id
+          }" data-product-id="${matchingProduct.id}">
                         <input 
                           type="radio" 
                           ${isChecked ? "checked" : ""}
@@ -93,7 +97,7 @@ export function renderOrderSummary() {
                             ${dateString}
                           </div>
                           <div class="delivery-option-price">
-                            ${priceString} shipping
+                            ${priceString}shipping
                           </div>
                         </div>
           </div>
@@ -116,7 +120,7 @@ export function renderOrderSummary() {
 
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {
-
+      //changes
       const productId = element.dataset.productId;
       const deliveryOptionId = element.dataset.deliveryOptionId;
       updateDeliveryOptions(productId, deliveryOptionId);
