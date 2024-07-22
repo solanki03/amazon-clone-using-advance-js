@@ -12,7 +12,7 @@ export function renderOrderSummary() {
     let productId = cartItem.productId;
 
     const matchingProduct = getProduct(productId);
-    
+
     const deliveryOptionId = cartItem.deliveryOptionsId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
@@ -22,13 +22,11 @@ export function renderOrderSummary() {
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd,MMMM D");
 
-    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
-      matchingProduct.id
-    }">
+    cartSummaryHTML += `<div class="cart-item-container js-order-summary 
+    js-cart-item-container  js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: ${dateString}
             </div>
-
             <div class="cart-item-details-grid">
               <img class="product-image"
                 src="${matchingProduct.image}">
@@ -40,18 +38,15 @@ export function renderOrderSummary() {
                 <div class="product-price">
                   $${formatCurrency(matchingProduct.priceCents)}
                 </div>
-                <div class="product-quantity">
+                <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                   <span>
-                    Quantity: <span class="quantity-label">${
-                      cartItem.quantity
-                    }</span>
+                    Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span data-product-id = "${
-                    matchingProduct.id
-                  }" class="delete-quantity-link link-primary js-delete-link">
+                  <span data-product-id = "${matchingProduct.id}" 
+                  class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}">
                     Delete
                   </span>
                 </div>
@@ -84,12 +79,11 @@ export function renderOrderSummary() {
       const isChecked = deliveryOptions.id === cartItem.deliveryOptionsId;
 
       html += `
-          <div class="delivery-option js-delivery-option" data-delivery-option-id="${
-            deliveryOptions.id
-          }" data-product-id="${matchingProduct.id}">
+          <div class="delivery-option js-delivery-option" data-delivery-option-id="${deliveryOptions.id
+        }" data-product-id="${matchingProduct.id}">
                         <input 
                           type="radio" 
-                          ${isChecked ? "checked" : ""}
+                          ${isChecked ? "checked" : ""};
                           class="delivery-option-input"
                           name="delivery-option-${matchingProduct.id}">
                         <div>
@@ -101,7 +95,7 @@ export function renderOrderSummary() {
                           </div>
                         </div>
           </div>
-        `
+        `;
     });
     return html;
   }

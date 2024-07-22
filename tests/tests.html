@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Jasmine Spec Runner v5.1.1</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>Jasmine Spec Runner v5.1.1</title>
 
-  <link rel="shortcut icon" type="image/png" href="lib/test-jasmine/jasmine_favicon.png">
-  <link rel="stylesheet" href="lib/test-jasmine/jasmine.css">
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="lib/test-jasmine/jasmine_favicon.png"
+    />
+    <link rel="stylesheet" href="lib/test-jasmine/jasmine.css" />
 
-  <script src="lib/test-jasmine/jasmine.js"></script>
-  <script src="lib/test-jasmine/jasmine-html.js"></script>
-  <script src="lib/test-jasmine/boot0.js"></script>
-  <!-- optional: include a file here that configures the Jasmine env -->
-  <script src="lib/test-jasmine/boot1.js"></script>
+    <script src="lib/test-jasmine/jasmine.js"></script>
+    <script src="lib/test-jasmine/jasmine-html.js"></script>
+    <script src="lib/test-jasmine/boot0.js"></script>
+    <!-- optional: include a file here that configures the Jasmine env -->
+    <script src="lib/test-jasmine/boot1.js"></script>
 
-  <script src="./utils/moneyTests.js" type="module"></script>
+    <script type="module" src="./utils/moneyTests.js"></script>
+    <script type="module" src="./data/cartTest.js"></script>
+    <script type="module" src="./chechout/orderSummaryTest.js"></script>
+  </head>
 
-</head>
-
-<body>
-</body>
+  <body>
+    <div class="js-test-container"></div>
+  </body>
 </html>
